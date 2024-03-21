@@ -1,3 +1,36 @@
+# Are You Smarter Than a Large Language Model?
+
+I've compiled a series of tasks here which I think are of business relevance to a large number of different businesses. Some of the tasks are very easy for a large language model, and others are cases on which current state-of-the-art models are known to struggle. 
+
+For each task, I show my own solution, as well as 1 or more solutions by an unsupervised large language model (I have used Open-AI's GPT4). For each task, I've also included the code which I used to generate the task (if I used code for that task), and the code which I used to prompt the language model.
+
+I encourage you to solve these problems yourself, and compare your speed and aptitude against the language model. For reference, the language model never took longer than X seconds to provide a solution. 
+
+I hope that this gives you some insight into what large language models are capable (and incapable) of.
+
+## Question Answering from a Knowledge Base
+
+Using [this knowledge base](./tasks/knowledge_base_question_answering/assets/knowledge_base.txt), answer the following customer question:
+
+"TODO"
+
+<details>
+  <summary>Click here to see my answer</summary>
+  TODO
+</details>
+<br>
+
+<details>
+  <summary>Click here to see the Language Model's answer</summary>
+    TODO
+</details>
+<br>
+
+<details>
+  <summary>Click here to see the prompt which I gave to the language model</summary>
+    TODO
+</details>
+<br>
 
 ## Time Series Forecasting and Analysis Task
 

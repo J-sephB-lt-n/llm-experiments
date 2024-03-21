@@ -24,6 +24,7 @@ What LLMs are good for in a business context:
 * Structured data extraction
 * Querying structured data (e.g. how is my marketing campaign going?)
 * Data sifting (e.g. select all articles relating to X)
+* Simulating data
 
 Other things LLMs are good at:
 * 

@@ -71,6 +71,7 @@ Here is my python code related to this task:
 * [simulate_data.py](./tasks/univariate_forecasting/code/simulate_data.py) 
 </details>
 <br>
+
 ## Item Triage Task  
 
 The following table reports 40 recent customer queries to a web-based banking platform. These queries need to be prioritized according to customer risk (i.e. most urgent are processed first). 

@@ -4,7 +4,7 @@ I've compiled a series of tasks here which I think are of business relevance to 
 
 For each task, I show my own solution, as well as 1 or more solutions by an unsupervised large language model (I have used Open-AI's GPT4). For each task, I've also included the code which I used to generate the task (if I used code to generate any part of the task), the code which I used to prompt the language model, and any other details which I think you may find interesting.
 
-I encourage you to solve these problems yourself, and compare your speed and aptitude against the language model. For reference, the language model never took longer than 15 seconds to provide a solution (although the model's solution was not always correct). 
+I encourage you to solve these problems yourself, and compare your speed and aptitude to the the large language model's. For reference, the language model never took longer than 15 seconds to provide a solution (although the model's solution was not always correct). 
 
 I hope that this gives you some insight into what large language models are capable (and incapable) of.
 

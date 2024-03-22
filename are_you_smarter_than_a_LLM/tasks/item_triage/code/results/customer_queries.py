@@ -43,8 +43,9 @@ simulated_customer_queries: list[str] = [
     "Do you have any educational resources about fraud prevention that I can review?",
 ]
 
+random.Random(1978).shuffle(simulated_customer_queries)
+
 if __name__ == "__main__":
-    random.Random(1978).shuffle(simulated_customer_queries)
     # print markdown table for README.md #
     print("| Query ID | Query ")
     print("|----------|-------")

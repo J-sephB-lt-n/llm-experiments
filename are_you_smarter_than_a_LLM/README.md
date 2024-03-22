@@ -51,9 +51,9 @@ I ran this prompt separately for each of these topics:
 
 * {payments with suspicious attributes}
 * {difficulty with the user interface (they don't know how to use the platform)}
+* {absolutely normal banking activity (i.e. nothing fraudulent), but containing the word 'fraud'}
 
 * {money stolen from their account} 
-* {the customer mistaking obviously legitimate bank charges for fraudulent transactions}
 * {authentication and access}
 * {the customer not being able to pay for something}
 * {debit orders which the customer authorised but is surprised when the money comes out because they don't understand what a debit order is}

@@ -144,7 +144,7 @@ These customer queries were generated using OpenAI's GPT4 model. You can read mo
 <details>
   <summary>Click here to see my answers</summary>
 
-| Query ID | Query | Customer has lost money due to fraud (high likelihood)
+| Query ID | Query | Customer has been a victim of fraud (high likelihood)
 |----------|-------|------------------
 | 0        | I am noticing an unexpected increase in payments to my utility service provider. Can you help? | TODO
 | 1        | I authorized a debit order but didn't expect my funds to go out. Can customer support assist me in understanding this? | TODO
@@ -191,19 +191,68 @@ These customer queries were generated using OpenAI's GPT4 model. You can read mo
 
 <details>
   <summary>Click here to see the Language Model's answers</summary>
-    TODO
+
+| Query ID | Query | Customer has been a victim of fraud (high likelihood)
+|----------|-------|------------------
+| 0 | I am noticing an unexpected increase in payments to my utility service provider. Can you help? | Maybe
+| 1 | I authorized a debit order but didn't expect my funds to go out. Can customer support assist me in understanding this? | No
+| 2 | How do I link my saving and checking accounts on your web application? | No
+| 3 | I'd like to ensure that I have fraud protection on my account. Can you assist? | No
+| 4 | Can you please clarify the steps followed to report potential fraud in my account? | Maybe
+| 5 | Can you please explain how your institution handles fraud detection and prevention? | No
+| 6 | I cannot locate my credit card statement in your online banking platform. Need assistance. | No
+| 7 | I've seen several payments to an online retailer whom I've never shopped from. Can you please assist me in addressing this issue? | Yes
+| 8 | Help needed! Money came out of my account labeled as 'debit order.' Can you explain what this is? | Maybe
+| 9 | Can you please explain why money has been deducted from my account without my knowledge? I remember authorizing a 'debit order' but I didn't know what it was. | Maybe
+| 10 | I authorized a debit order, but wasn't expecting funds to be deducted from my account. Can you explain why this happened? | Maybe
+| 11 | Hey, there's a transaction made when I was travelling, and I know I didn't make it. Would you mind checking? | Yes
+| 12 | How do I create a new payee when making online transactions on your website? | No
+| 13 | What course of action should I take if I suspect fraud on my account? | Maybe
+| 14 | Hi, I've recently noticed several unauthorized transactions on my account. Could you help me investigate? | Yes
+| 15 | I received an email asking for my account details. Is this a typical case of email fraud? | Maybe
+| 16 | What measures does the bank take to warn customers about potential fraud risks? | No
+| 17 | Do you have any educational resources about fraud prevention that I can review? | No
+| 18 | Can you guide me through setting up automatic bill payments on your website? | No
+| 19 | How do I set up fraud alerts to my phone and email? | No
+| 20 | I am unable to locate the 'transfer funds' option on your online banking platform. | No
+| 21 | I noticed a debit order on my account that I don't understand. What happens when you authorize a debit order? | Maybe
+| 22 | I think I'm a victim of fraud. Can you help me secure my account? | Yes
+| 23 | If someone tried to commit fraud involving my account, how would I be notified? | No
+| 24 | I have received an alert for a cash transfer I did not authorize. Can you help me cancel this transaction? | Yes
+| 25 | Could you explain the steps for updating my contact details in your banking application? | No
+| 26 | Help! My account shows a payment that exceeds my set transfer limit, but I did not authorize it. | Yes
+| 27 | I authorized a debit order but I don't really understand what that means. Can you please explain and tell me why my money was taken out? | Maybe
+| 28 | I am having trouble finding the option to set up mobile alerts. Could you assist? | No
+| 29 | Hey, there's a large payment made to a vendor I've never done business with. What's going on? | Yes
+| 30 | Can you guide me through ordering a new checkbook via your web application? | No
+| 31 | Can you clarify how a debit order works? I authorized it and money has been taken out of my account unexpectedly. | No
+| 32 | I spotted a suspicious foreign transaction on my account. Could you check it out, please? | Yes
+| 33 | I don't understand the concept of a debit order and I'm seeing deductions on my account. Could you please explain this to me? | Maybe
+| 34 | I can't seem to find where to check my account balance. Could you help? | No
+| 35 | I saw a transaction on my account that I don't recognize. Turns out I'd authorized a debit order. Can you explain what this debit order is? | Maybe
+| 36 | I'm unable to recognize a recurring monthly payment on my account. Can you assist with this? | Maybe
+| 37 | How do I reset my pin using your banking website? I can't find the option. | No
+| 38 | Money deducted under 'debit order' and I don't understand what that means - could you kindly explain? | Maybe
+| 39 | Hello, I observed multiple small payments to the same recipient. Is this a fraudulent activity? | Maybe
+
 </details>
 <br>
 
 <details>
   <summary>Click here to see the prompt which I gave to the language model</summary>
-    TODO
+The model was prompted separately for each individual customer query. Each time, it was given the same context and a single example as follows:
+
+"  
+SYSTEM: You are an experienced cybersecurity professional working for a large bank. You have been assigned the task of classifying a set of customer queries which have been submitted directly by customers on your web-based banking platform. When presented with a user query, please answer with only a single word: 'Yes', 'No' or 'Maybe'. Please do not provide any additional information. 
+"
+
+You can view the python code which I used to get responses from the model [here](./tasks/item_triage/code/classify_customer_queries.py)
 </details>
 <br>
 
 <details>
   <summary>Click here for more details about this task</summary>
-I generated the customer queries using the OpenAi GPT4 model, with the following prompt:
+I generated all of the customer queries in this task using the OpenAi GPT4 model (I did not edit a single thing), with the following prompt:
 <br><br>
 
 *"Please generate 10 authentic customer queries that were submitted to the 'customer support' service of a web-based banking application. Each query should be between 5 and 50 words long. The customer queries must all be related to {topic}."*

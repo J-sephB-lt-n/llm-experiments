@@ -1,6 +1,6 @@
 # Are You Smarter Than a Large Language Model?
 
-I've compiled a series of tasks here which I think are of business relevance to a large number of different businesses. Some of the tasks are very easy for a large language model, and others are tasks on which current state-of-the-art models are known to struggle. 
+I've compiled a series of tasks here which I think are of business relevance to a large number of different businesses, and which a large language model might be able to complete on it's own. Some of the tasks are very easy for a large language model, and others are tasks on which current state-of-the-art models are known to struggle. 
 
 For each task, I show my own solution, as well as 1 or more solutions by an unsupervised large language model (I have used Open-AI's GPT4). For each task, I've also included the code which I used to generate the task (if I used code to generate any part of the task), the code which I used to prompt the language model, and any other details which I think you may find interesting.
 
@@ -32,6 +32,8 @@ Please complete the following tasks:
 1. Describe any predictable patterns which you observe in this data (e.g. trend).
 
 2. Provide predictions (forecasted sales) for the last 3 months of 2027.
+
+You can get the raw data [here](./tasks/univariate_forecasting/assets/simdata.csv).
 
 <details>
   <summary>Click here to see my answer</summary>
@@ -244,6 +246,13 @@ The model was prompted separately for each individual customer query. Each time,
 
 "  
 SYSTEM: You are an experienced cybersecurity professional working for a large bank. You have been assigned the task of classifying a set of customer queries which have been submitted directly by customers on your web-based banking platform. When presented with a user query, please answer with only a single word: 'Yes', 'No' or 'Maybe'. Please do not provide any additional information. 
+
+USER: Thank you so much for resolving my fraud case so quickly!
+
+ASSISTANT: No.
+
+USER: &lt;new customer query goes here&gt;
+
 "
 
 You can view the python code which I used to get responses from the model [here](./tasks/item_triage/code/classify_customer_queries.py)

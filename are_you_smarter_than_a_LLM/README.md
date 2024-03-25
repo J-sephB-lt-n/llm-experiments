@@ -1,5 +1,7 @@
 # Are You Smarter Than a Large Language Model?
 
+TLDR: Large language models - like children - are the best and worst thing ever.
+
 I've compiled a series of tasks here which I think are of business relevance to a large number of different businesses, and which a large language model might be able to complete on it's own. Some of the tasks are very easy for a large language model, and others are tasks on which current state-of-the-art models are known to struggle. 
 
 For each task, I show my own solution, as well as 1 or more solutions by an unsupervised large language model (I have used Open-AI's GPT4). For each task, I've also included the code which I used to generate the task (if I used code to generate any part of the task), the code which I used to prompt the language model, and any other details which I think you may find interesting.
@@ -104,7 +106,7 @@ Here are the model's predictions visualised:
 
 Seeing that the language model suggested a time series forecasting model, I let it write the code to fit one. This took the language model 8.05 seconds. You can see the language model's full response [here](./tasks/univariate_forecasting/code/llm_generated_forecasting_code.md).
 
-The generated code did not run successfully because it made use of deprecated functionality in the python *statsmodels* package, and I decided not to spend any time fixing the code. It's also apparent that order of the ARIMA model was chosen seemingly arbitrarily, rather than being inferred from the data.
+The generated code did not run successfully because it made use of deprecated functionality in the python *statsmodels* package, and I decided not to spend any time fixing the code. I'm aware that the language model could have probably solved this issue through through self-guided trial and error, but I decided not to explore this particular rabbit hole. It was also apparent to me that the order of the ARIMA model was chosen seemingly arbitrarily, rather than being inferred from the data - this is not something that the language model could have resolved on it's own.
 
 </details>
 <br>
@@ -137,7 +139,7 @@ Please can you do the following:
 
 "
 
-For the prompt which generated the forecasting model code, [llm_predictive_model_code_generation.py](./tasks/univariate_forecasting/code/llm_predictive_model_code_generation.py)
+For the prompt which generated the forecasting model code, you can refer to [llm_predictive_model_code_generation.py](./tasks/univariate_forecasting/code/llm_predictive_model_code_generation.py)
 
 
 </details>
@@ -333,7 +335,7 @@ Constraints:
 
 <details>
   <summary>Click here to see my answer</summary>
-I evaluated candidate solutions {1,2,3,4,5}, {1,3,5,6} and {3,5,7}, from which the best was {3,5,7} (with a total value of 190).
+I evaluated candidate solutions {1,2,3,4,5}, {1,3,5,6} and {3,5,7}, from which the best was {3,5,7} (with a total output of 190).
 
 I confirmed that this was the correct solution using google's [ortools](https://github.com/google/or-tools) (see my python code [here](./tasks/knapsack_problem/code/explicit_solution.py))
 

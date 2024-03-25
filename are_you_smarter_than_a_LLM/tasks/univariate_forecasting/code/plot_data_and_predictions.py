@@ -4,9 +4,9 @@ TODO
 The majority of this script was written by ChatGPT3.5
 
     $ python -m code.plot_data_and_predictions \
-            --predictions 69.420,800.85,60.47 \
-            --plot_subtitle "My Custom Plot Subtitle" \
-            --output_filename "temp.png"
+            --predictions 79.68103,78.69210,92.82679 \
+            --plot_subtitle "(Language Model's Predictions)" \
+            --output_filename llm_predictions.png
 """
 
 import argparse

@@ -48,15 +48,21 @@ You can get the raw data [here](./tasks/univariate_forecasting/assets/simdata.cs
 
 * Ignoring data noise, there is clear growth in sales over time i.e. 2027 > 2026 > 2025.    
 
-* There is clear seasonal trend within each year: explainTODO 
+* There is clear seasonal trend within each year: TODO 
 
 --Question 2--
 
-* 2027-10: 
+I just eyeballed it, and erred on the conservative side.
 
-* 2027-11:
+* 2027-10: 75m 
 
-* 2027-12: 
+* 2027-11: 81m
+
+* 2027-12: 86.5m
+
+<figure>
+  <img src="./tasks/univariate_forecasting/assets/my_predictions.png" height="400" />
+</figure>
 </details>
 <br>
 
@@ -102,6 +108,7 @@ Here are the model's predictions visualised:
 
 <details>
   <summary>Click here to see the prompt which I gave to the language model</summary>
+"
 
   SYSTEM: You are an insightful and educated data analyst.
 
@@ -124,6 +131,8 @@ Please can you do the following:
   1. Describe any predictable patterns which you observe in this data (e.g. trend).
         
   2. Provide predictions (forecasted sales) for the last 3 months of 2027.
+
+"
 
 </details>
 <br>
@@ -207,56 +216,6 @@ Please mark each customer query as "yes", "mabye" or "no", where:
 </details>
 <br>
 
-These customer queries were generated using OpenAI's GPT4 model. You can read more details about this at the end of this section. 
-
-<details>
-  <summary>Click here to see my answers</summary>
-
-| Query ID | Query | Customer has been a victim of fraud (high likelihood)
-|----------|-------|------------------
-| 0        | I am noticing an unexpected increase in payments to my utility service provider. Can you help? | TODO
-| 1        | I authorized a debit order but didn't expect my funds to go out. Can customer support assist me in understanding this? | TODO
-| 2        | How do I link my saving and checking accounts on your web application? | TODO
-| 3        | I'd like to ensure that I have fraud protection on my account. Can you assist? | TODO
-| 4        | Can you please clarify the steps followed to report potential fraud in my account? | TODO
-| 5        | Can you please explain how your institution handles fraud detection and prevention? | TODO
-| 6        | I cannot locate my credit card statement in your online banking platform. Need assistance. | TODO
-| 7        | I've seen several payments to an online retailer whom I've never shopped from. Can you please assist me in addressing this issue? | TODO
-| 8        | Help needed! Money came out of my account labeled as 'debit order.' Can you explain what this is? | TODO
-| 9        | Can you please explain why money has been deducted from my account without my knowledge? I remember authorizing a 'debit order' but I didn't know what it was. | TODO
-| 10       | I authorized a debit order, but wasn't expecting funds to be deducted from my account. Can you explain why this happened? | TODO
-| 11       | Hey, there's a transaction made when I was travelling, and I know I didn't make it. Would you mind checking? | TODO
-| 12       | How do I create a new payee when making online transactions on your website? | TODO
-| 13       | What course of action should I take if I suspect fraud on my account? | TODO
-| 14       | Hi, I've recently noticed several unauthorized transactions on my account. Could you help me investigate? | TODO
-| 15       | I received an email asking for my account details. Is this a typical case of email fraud? | TODO
-| 16       | What measures does the bank take to warn customers about potential fraud risks? | TODO
-| 17       | Do you have any educational resources about fraud prevention that I can review? | TODO
-| 18       | Can you guide me through setting up automatic bill payments on your website? | TODO
-| 19       | How do I set up fraud alerts to my phone and email? | TODO
-| 20       | I am unable to locate the 'transfer funds' option on your online banking platform. | TODO
-| 21       | I noticed a debit order on my account that I don't understand. What happens when you authorize a debit order? | TODO
-| 22       | I think I'm a victim of fraud. Can you help me secure my account? | TODO
-| 23       | If someone tried to commit fraud involving my account, how would I be notified? | TODO
-| 24       | I have received an alert for a cash transfer I did not authorize. Can you help me cancel this transaction? | TODO
-| 25       | Could you explain the steps for updating my contact details in your banking application? | TODO
-| 26       | Help! My account shows a payment that exceeds my set transfer limit, but I did not authorize it. | TODO
-| 27       | I authorized a debit order but I don't really understand what that means. Can you please explain and tell me why my money was taken out? | TODO
-| 28       | I am having trouble finding the option to set up mobile alerts. Could you assist? | TODO
-| 29       | Hey, there's a large payment made to a vendor I've never done business with. What's going on? | TODO
-| 30       | Can you guide me through ordering a new checkbook via your web application? | TODO
-| 31       | Can you clarify how a debit order works? I authorized it and money has been taken out of my account unexpectedly. | TODO
-| 32       | I spotted a suspicious foreign transaction on my account. Could you check it out, please? | TODO
-| 33       | I don't understand the concept of a debit order and I'm seeing deductions on my account. Could you please explain this to me? | TODO
-| 34       | I can't seem to find where to check my account balance. Could you help? | TODO
-| 35       | I saw a transaction on my account that I don't recognize. Turns out I'd authorized a debit order. Can you explain what this debit order is? | TODO
-| 36       | I'm unable to recognize a recurring monthly payment on my account. Can you assist with this? | TODO
-| 37       | How do I reset my pin using your banking website? I can't find the option. | TODO
-| 38       | Money deducted under 'debit order' and I don't understand what that means - could you kindly explain? | TODO
-| 39       | Hello, I observed multiple small payments to the same recipient. Is this a fraudulent activity? | TODO
-</details>
-<br>
-
 <details>
   <summary>Click here to see the Language Model's answers</summary>
 
@@ -308,7 +267,7 @@ These customer queries were generated using OpenAI's GPT4 model. You can read mo
 
 <details>
   <summary>Click here to see the prompt which I gave to the language model</summary>
-The model was prompted separately for each individual customer query. Each time, it was given the same context and a single example as follows:
+The model was prompted separately for each individual customer query. Each time, it was given the same context and the same single example as follows:
 
 "  
 SYSTEM: You are an experienced cybersecurity professional working for a large bank. You have been assigned the task of classifying a set of customer queries which have been submitted directly by customers on your web-based banking platform. When presented with a user query, please answer with only a single word: 'Yes', 'No' or 'Maybe'. Please do not provide any additional information. 
@@ -327,7 +286,7 @@ You can view the python code which I used to get responses from the model [here]
 
 <details>
   <summary>Click here for more details about this task</summary>
-I generated all of the customer queries in this task using the OpenAi GPT4 model (I did not edit a single thing), with the following prompt:
+I generated all of the customer queries in this task themselves using the OpenAi GPT4 model (they appear in this task unedited), with the following prompt:
 <br><br>
 
 *"Please generate 10 authentic customer queries that were submitted to the 'customer support' service of a web-based banking application. Each query should be between 5 and 50 words long. The customer queries must all be related to {topic}."*
@@ -351,8 +310,6 @@ You can see my python customer query simulation code [here](./tasks/item_triage/
 <br>
 
 Using [this knowledge base](./tasks/knowledge_base_question_answering/assets/knowledge_base.txt), answer the following customer questions, quoting the portion of the knowledge base which answered the question:
-
-"TODO"
 
 <details>
   <summary>Click here to see my answer</summary>

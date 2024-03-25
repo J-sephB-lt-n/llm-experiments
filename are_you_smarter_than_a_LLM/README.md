@@ -55,7 +55,34 @@ You can get the raw data [here](./tasks/univariate_forecasting/assets/simdata.cs
 
 <details>
   <summary>Click here to see the Language Model's answer</summary>
-    TODO
+    GPT4 took 2.02 seconds to complete this task.
+
+Here is the full unedited model answer:
+
+```
+1. Observations on the dataset:
+
+   The dataset represents monthly sales data for a period of approximately three years. From a preliminary look at the data, it seems that there might be some seasonality in the sales data, as there are peaks and troughs that appear to repeat each year. 
+
+   For instance, sales seem to increase around the start of the year (January to April), then decrease in the middle of the year (May to July), and again increase towards the end of the year (August to December). This pattern seems to repeat each year, suggesting a seasonal trend.
+
+   Additionally, there seems to be a slight upward trend in the data over the years. For example, the sales in January 2025 were approximately 72.45m, and by January 2027, they had increased to approximately 82.32m. This suggests that sales are generally increasing over time.
+
+2. Predictions for the last three months of 2027:
+
+   To provide accurate predictions, a time series model such as ARIMA, SARIMA, or exponential smoothing would typically be used. These models take into account the trend and seasonality in the data to provide future forecasts. However, without the ability to run these models here, I can provide a rough estimate based on the observed patterns.
+
+   Given the observed seasonality and trend, we might expect sales in October, November, and December of 2027 to be higher than the corresponding months in 2026. 
+
+   If we assume a similar rate of increase as observed from 2025 to 2026, we might predict:
+
+   - October 2027: 72.78681m (Oct 2026) + (72.78681m - 65.89159m) = 79.68103m
+   - November 2027: 79.18504m (Nov 2026) + (79.18504m - 79.67798m) = 78.69210m
+   - December 2027: 86.33679m (Dec 2026) + (86.33679m - 79.84679m) = 92.82679m
+
+   Please note that these are rough estimates and actual predictions may vary. For more accurate predictions, it would be advisable to use a time series forecasting model.
+```
+
 </details>
 <br>
 

@@ -19,6 +19,12 @@ Here are links to specific tasks:
 | [Text Summarisation](#text-summarisation-task) | TODO
 | [Optimisation (Knapsack problem)](#optimisation-task-knapsack-problem) | Decide which items to pack into a container in order to maximise profit 
 
+Here are some things that I have learned through this process:
+
+* ChatGPT3.5 produces working python code, but the code is not very readable or maintainable (poor variable naming, poor documentation etc.). Developers creating code this way without careful oversight will quickly create an unmaintainable codebase.  
+
+* It seems impossible that OpenAI's GPT4 is doing only next token prediction. It appears to have access to self-reflection and tool use (e.g. a calculator)  
+
 ## Time Series Forecasting and Analysis Task
 
 Inspect the following plot of monthly sales (in millions) and answer the questions which follow: 
@@ -86,6 +92,11 @@ Here is the full unedited model answer:
 
 """
 
+Here are the model's predictions visualised:
+
+<figure>
+  <img src="./tasks/univariate_forecasting/assets/llm_predictions.png" height="400" />
+</figure>
 </details>
 <br>
 

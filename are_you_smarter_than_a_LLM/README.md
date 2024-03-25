@@ -26,6 +26,7 @@ Inspect the following plot of monthly sales (in millions) and answer the questio
   <img src="./tasks/univariate_forecasting/assets/data_plot.png" height="400" />
   <figcaption>(The code which generated this plot was entirely written by OpenAI's ChatGPT3.5 model)</figcaption>
 </figure>
+<br>
 
 Please complete the following tasks:
 
@@ -59,7 +60,8 @@ You can get the raw data [here](./tasks/univariate_forecasting/assets/simdata.cs
 
 Here is the full unedited model answer:
 
-```
+"""
+
 1. Observations on the dataset:
 
    The dataset represents monthly sales data for a period of approximately three years. From a preliminary look at the data, it seems that there might be some seasonality in the sales data, as there are peaks and troughs that appear to repeat each year. 
@@ -81,7 +83,8 @@ Here is the full unedited model answer:
    - December 2027: 86.33679m (Dec 2026) + (86.33679m - 79.84679m) = 92.82679m
 
    Please note that these are rough estimates and actual predictions may vary. For more accurate predictions, it would be advisable to use a time series forecasting model.
-```
+
+"""
 
 </details>
 <br>

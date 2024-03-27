@@ -13,6 +13,7 @@ variable OPENAI_API_KEY
 # standard lib imports #
 import json
 import logging
+import time
 
 # 3rd party imports #
 import openai
@@ -22,7 +23,7 @@ from tqdm import tqdm
 from code.results.customer_queries import simulated_customer_queries
 
 logging.basicConfig(
-    level=logging.WARNING, format="%(asctime)s - %(levelname)s - %(message)s"
+    level=logging.INFO, format="%(asctime)s - %(levelname)s - %(message)s"
 )
 logger = logging.getLogger(__name__)
 openai_client = openai.OpenAI()
@@ -36,6 +37,8 @@ llm_prompt_template: str = (
     'Please answer with exactly 1 word - "Yes", "No" or "Maybe".'
 )
 llm_responses: list[dict[str, str | None]] = []
+logger.info("Started inference")
+start_time: float = time.perf_counter()
 for idx, customer_query in tqdm(enumerate(simulated_customer_queries)):
     logger.debug(
         llm_prompt_template.replace(
@@ -90,6 +93,10 @@ for idx, customer_query in tqdm(enumerate(simulated_customer_queries)):
         }
     )
     logger.debug(llm_response.choices[0].message.content)
+
+logger.info(
+    "Completed inference. %s seconds elapsed", f"{(time.perf_counter()-start_time):.2f}"
+)
 
 with open("code/results/llm_classifications.json", "w", encoding="utf-8") as file:
     json.dump(llm_responses, file, indent=4)

@@ -33,13 +33,15 @@ The aims of this project:
 
 * Setting
 
+    - immersive
+
     - location(s)
 
     - time period (date, but also length of time covered by the story)
 
-    - immersive
-
     - locations can change over time
+
+    - treat locations like characters: believable, memorable, development etc.
 
 * Point-of-view
 
@@ -49,7 +51,7 @@ The aims of this project:
 
     - mystery
 
-    - tension
+    - conflict and tension
 
     - surprise
 

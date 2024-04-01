@@ -10,3 +10,49 @@ The aims of this project:
 * To maintain narrative cohesion and story stability through explicit maintaining of state (locations, characters, etc.)
 
 * To create high quality and engaging stories through explicit use of story elements (character, plot, conflict etc.)  
+
+# Elements of a good short story
+
+* Character
+
+    - consistency
+
+    - believable and fully-formed (strengths and weaknesses)
+
+    - development (character arc)
+
+    - memorable
+
+    - has goals and motivations
+
+* Plot
+
+    - rising action -> climax -> falling action -> denouement
+
+    - conflict (obstacles to the protagonist)
+
+* Setting
+
+    - location(s)
+
+    - time period (date, but also length of time covered by the story)
+
+    - immersive
+
+    - locations can change over time
+
+* Point-of-view
+
+* Theme
+
+* Style
+
+    - mystery
+
+    - tension
+
+    - surprise
+
+    - wonder
+
+

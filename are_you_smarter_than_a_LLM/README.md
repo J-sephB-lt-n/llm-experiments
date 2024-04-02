@@ -439,7 +439,7 @@ You are subject to the following constraints:
   <summary>Click here to see my answer</summary>
 I evaluated candidate solutions {1,2,3,4,5}, {1,3,5,6} and {3,5,7}, from which the best was {3,5,7} (with a total output of 190).
 
-I confirmed that this was the correct solution using google's [ortools](https://github.com/google/or-tools) (see my python code [here](./tasks/knapsack_problem/code/explicit_solution.py))
+I confirmed that this was the correct solution using google's [ortools](https://github.com/google/or-tools) (you can read my python code [here](./tasks/knapsack_problem/code/explicit_solution.py))
 
 </details>
 <br>
@@ -468,7 +468,10 @@ FacilityID: 3, 5, 7
 Total Resource Usage: 30
 
 Total Output: 190
+
 """
+
+I don't know if it was fluke or not, but GPT4 absolutely smashed this task.
 
 </details>
 <br>
@@ -495,7 +498,7 @@ FacilityID,Resource Usage,Output<br>
 7,14,80<br>
 8,18,50<br>
 
-Given that the sum of total resource usage across all facilities cannot exceed 30 and that no more than 1 of each facility may be built, please report the combination of facilities to be built which will maximise total output.You may report the Facility IDs without providing any explanation for your answer. Please also report the total resource usage and total output under your proposed solution.
+Given that the sum of total resource usage across all facilities cannot exceed 30 and that no more than 1 of each facility may be built, please report the combination of facilities to be built which will maximise total output. You may report the Facility IDs without providing any explanation for your answer. Please also report the total resource usage and total output under your proposed solution.
 
 """
 </details>

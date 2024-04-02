@@ -54,7 +54,7 @@ llm_chat = openai_client.chat.completions.create(
                 "that no more than 1 of each facility may be "
                 "built, please report the combination of "
                 "facilities to be built which will maximise "
-                "total output."
+                "total output. "
                 "You may report the Facility IDs without "
                 "providing any explanation for your answer.\n"
                 "Please also report the total resource usage "

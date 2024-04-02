@@ -1,6 +1,6 @@
 # Are You Smarter Than a Large Language Model?
 
-Article by Joseph Bolton. Last update: 2024-03-27.
+Article by Joseph Bolton. Last update: 2024-04-02.
 
 <figure>
   <img src="./assets/machine_brain.jpg" height="500" width="500"/>
@@ -11,13 +11,13 @@ Article by Joseph Bolton. Last update: 2024-03-27.
 
 Large language models, like children, are the best and worst thing ever. 
 
-I have been repeatedly blown away by these models' aptitude and generality, and I have to repeatedly remind myself that they are "just" next-token predictors. I often find their output indistinguishable from a human's. 
+I have been repeatedly blown away by these models' aptitude and generality, and I have to repeatedly remind myself that they are "just" next-word (technically next-token) predictors. I often find their output indistinguishable from a human's. Very occasionally, I am also blown away by their clumsiness.  
 
-In the interest of interrogating their abilities, and of understanding their strengths and weaknesses, I compiled my own set of tasks on which to assess them. Beyond simple marketing "oh wow", I wanted to see how these models perform on tasks which are of actual utility to me. On some of the tasks, I expected the language model to show superhuman ability, and on others I expect it to fail miserably. In most cases, I was pleasantly surprised.
+As an (informal) interrogation of their abilities, and to understand their strengths and weaknesses a bit, I compiled my own set of tasks on which to assess them. Beyond simple marketing "oh wow", I wanted to see how these models perform on tasks which may be of actual business utility. On some of the tasks, I expected the language model to show superhuman ability, and on others I expected it to fail miserably. In most cases, I was pleasantly surprised.
 
-For each task, I attempted it myself before giving it to the language model. I encourage you to do the same: attempt the task yourself before reading the model's answer. Then, you can be the judge. For your interest and amusement, I have included my own attempts for you to read.
+For each task, I attempted it myself before giving it to the language model. I encourage you to do the same: attempt the task yourself before reading the model's answer. Then, you can be the judge. For your interest and amusement, I have also included my own attempts for you to read.
 
-For all of the tasks, I used OpenAI's GPT4 model. At the time of writing, this is generally considered to be one of the best available models. On none of the tasks did the model take longer than 15 seconds to provide an answer (which was not always the correct answer).
+For all of the tasks, I've used OpenAI's GPT4 model. At the time of writing, this is generally considered to be one of the best available models. On none of the tasks did the model take longer than 15 seconds to provide an answer (which was not always the correct answer).
 
 I hope that this article gives you some insight into what large language models are capable (and incapable) of.
 
@@ -41,6 +41,10 @@ At the end of the article, I'll explain some things which I learned along the wa
 </figure>
 <br>
 <br>
+
+I included this task because I wanted to see how good a large language model is at pretending to be a person.  
+
+Here is the task:
 
 You are a player in a game. Some of the players in the game are humans and others are computers. You do not know which is which. Each player must provide a single english sentence. The aim of the game is for the human players to determine which of the other players are human and which are are not, based only upon this single submitted sentence. Your goal is to provide a sentence which convinces the other players that you are a human. 
 
@@ -92,14 +96,14 @@ Please complete the following tasks:
 You can see the raw data [here](./tasks/univariate_forecasting/assets/simdata.csv).
 
 <details>
-  <summary>Click here to see my answer</summary>
---Question 1--
+  <summary>Click here to see my answers</summary>
+--Question 1-- "Describe any predictable patterns which you observe in this data (e.g. trend)."
 
 * Ignoring data noise, there is clear growth in sales over time i.e. 2027 > 2026 > 2025.    
 
-* There is clear seasonal trend within each year: Higher sales for the first 4 months of each year (with linear upward trend over these months) and lower sales in June, July, August and October.   
+* There is clear seasonal trend within each year: Higher sales for the first 4 months of each year (with linear(ish) upward trend over these months) with a drop in sales in June, July, August and October.   
 
---Question 2--
+--Question 2-- "Provide predictions (forecasted sales) for the last 3 months of 2027."
 
 I just eyeballed it, and erred on the conservative side.
 
@@ -116,7 +120,7 @@ I just eyeballed it, and erred on the conservative side.
 <br>
 
 <details>
-  <summary>Click here to see the language model's answer</summary>
+  <summary>Click here to see the language model's answers</summary>
 (GPT4 took 2.02 seconds to complete this task)
 
 Here is the full unedited model answer:
@@ -153,15 +157,24 @@ Here are the model's predictions visualised:
   <img src="./tasks/univariate_forecasting/assets/llm_predictions.png" height="400" />
 </figure>
 
-Seeing that the language model suggested a time series forecasting model, I let it write the code to fit one. This took the language model 8.05 seconds. You can see the language model's full response [here](./tasks/univariate_forecasting/code/llm_generated_forecasting_code.md).
+Seeing that the language model suggested a time series forecasting model, I let it write the code to fit one. This took the model 8.05 seconds. You can see the language model's full response [here](./tasks/univariate_forecasting/code/llm_generated_forecasting_code.md).
 
-The generated code did not run successfully because it made use of deprecated functionality in the python *statsmodels* package, and I decided not to spend any time fixing it's code. I'm aware that the language model could have solved this issue through through self-guided trial and error (and that OpenAI has a product for this), but I decided not to explore this particular rabbit hole. It was also apparent to me that the order of the ARIMA model was chosen seemingly arbitrarily - as opposed to being informed by the actual data - so I am skeptical about what the quality of it's predictions might have been.
+The generated code did not run because it made use of deprecated functionality in the python [statsmodels](https://github.com/statsmodels/statsmodels) package, and I decided not to spend any time fixing it's code. I'm aware that the language model might have been able to solve this issue through an iterative process of self-guided trial and error (and that OpenAI has a product for this), but I decided not to explore this particular rabbit hole - I wouldn't accept this sloppy non-working code from a human developer, so I won't accept it from this robot  either. 
+
+It's also apparent to me that the order of the ARIMA model was chosen seemingly arbitrarily (rather than being informed by the actual data) so I am skeptical about what the quality of the predictions might have been even if the code had worked.
+
+Overall, I'm very impressed by the language model's output. It was not flawless, but GPT4 could definitely provide some value as a data analyst (on this sort of data).
 
 </details>
 <br>
 
 <details>
   <summary>Click here to see the prompt which I gave to the language model</summary>
+
+Although it is possible for GPT4 to use images as input, I just gave it the raw data to work with.
+
+Here is the prompt which the model received from me:
+
 "
 
   SYSTEM: You are an insightful and educated data analyst.
@@ -218,9 +231,13 @@ Here is my python code related to this task:
 <br>
 <br>
 
+For this task, you don't need to do the whole (tedious) thing. Just do enough to get a feeling for how long it would take a human to complete (GPT4 took an average of 1.2 seconds per customer query).
+
+The task is as follows:
+
 The following table reports 40 recent customer queries to a web-based banking platform. These queries need to be prioritized according to customer security risk (i.e. most urgent are processed first). 
 
-Please mark each customer query as "yes", "mabye" or "no", where:
+Please mark each customer query as "Yes", "Maybe" or "No", where:
 
 | Classification | Meaning 
 |----------------|----------
@@ -273,6 +290,12 @@ Please mark each customer query as "yes", "mabye" or "no", where:
 | 37       | How do I reset my pin using your banking website? I can't find the option.
 | 38       | Money deducted under 'debit order' and I don't understand what that means - could you kindly explain?
 | 39       | Hello, I observed multiple small payments to the same recipient. Is this a fraudulent activity?
+</details>
+<br>
+
+<details>
+  <summary>Click here to see my answers</summary>
+I will not put you through the tedium of reading 40 lines of this!
 </details>
 <br>
 
@@ -363,13 +386,13 @@ ASSISTANT:
 
 """
 
-You can view the python code which I used to get responses from the model [here](./tasks/item_triage/code/classify_customer_queries.py)
+You can view the python code which I used to get responses from the model [here](./tasks/item_triage/code/classify_customer_queries.py).
 </details>
 <br>
 
 <details>
   <summary>Click here for more details about this task</summary>
-I generated all of the customer queries in this task themselves using the OpenAi GPT4 model (they appear in this task unedited), with the following prompt:
+I generated all of the customer queries in this task themselves using the OpenAI GPT4 model (they appear in this task unedited), with the following prompt:
 <br><br>
 
 *"Please generate 10 authentic customer queries that were submitted to the 'customer support' service of a web-based banking application. Each query should be between 5 and 50 words long. The customer queries must all be related to {topic}."*
@@ -380,7 +403,7 @@ I ran this prompt separately for each of these topics:
 * {difficulty with the user interface (they don't know how to use the platform)}
 * {absolutely normal banking activity (i.e. nothing fraudulent), but containing the word 'fraud'}
 
-You can see my python customer query simulation code [here](./tasks/item_triage/code/simulate_customer_queries.py)
+You can see my python customer query simulation code [here](./tasks/item_triage/code/simulate_customer_queries.py).
 </details>
 <br>
 
@@ -523,6 +546,8 @@ Using [this knowledge base](./tasks/knowledge_base_question_answering/assets/kno
 ## Conclusion 
 
 Here are some things that I have learned through this process:
+
+* Large language models seem very well-suited to tasks which involve understanding language. Examples of these tasks are sentiment analysis, intent classification,  
 
 * ChatGPT3.5 produces working python code, but the code is not very readable or maintainable (poor variable naming, poor documentation etc.). Developers creating code this way without careful oversight will quickly create an unmaintainable codebase.  
 

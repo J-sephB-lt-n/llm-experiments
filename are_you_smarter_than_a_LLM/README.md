@@ -79,6 +79,7 @@ You can see my python code for interacting with the OpenAI API here:
 ## Time Series Forecasting and Analysis Task
 
 Inspect the following plot of monthly sales (in millions) and answer the questions which follow: 
+
 <figure>
   <img src="./tasks/univariate_forecasting/assets/data_plot.png" height="400" />
   <figcaption>(The code which generated this plot was written by OpenAI's ChatGPT3.5 model)</figcaption>

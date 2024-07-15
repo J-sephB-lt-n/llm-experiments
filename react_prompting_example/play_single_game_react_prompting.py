@@ -3,8 +3,8 @@ import ollama
 from gamble_machine import GambleMachine
 
 
-def play_single_game_vanilla_llm() -> tuple[str, int]:
-    """Plays a single game to completion using basic prompting
+def play_single_game_react_prompting() -> tuple[str, int]:
+    """Plays a single game to completion using a ReAct prompting strategy
 
     Returns:
         tuple[str, int]: tuple[player_status, score]
@@ -33,17 +33,21 @@ def play_single_game_vanilla_llm() -> tuple[str, int]:
             "You will never receive more than 30 units in a single round. "
             "If you accumulate more than 100 units, you forfeit all accumulated units and lose the game. "
             f"You have played {len(reward_history)} rounds so far and received rewards of {', '.join([str(x) for x in reward_history])}. "
-            # f"Your total accumulated rewards so far is {sum(reward_history)}. "
-            "Do you wish to play another round? "
-            # "Talk me through your decision step by step, then tell me whether you want to play another round (yes or no)"
-            "Please answer with a single word (yes or no)"
+            "Do you wish to play another round? Please answer with a single word (yes or no)"
         )
         print(prompt)
-        llm_response = ollama.generate(
-            # model="mistral:instruct",
-            model="qwen2:1.5b",
-            prompt=prompt,
-        )["response"]
+        llm_response = ollama.generate(model="mistral:instruct", prompt=prompt)[
+            "response"
+        ]
+        # llm_response = ollama.chat(
+        #     model="mistral:instruct",
+        #     messages=[
+        #         {
+        #             "role": "user",
+        #             "content": prompt,
+        #         },
+        #     ],
+        # )["message"]["content"]
         print(f"LLM response: {llm_response}")
         if "yes" in llm_response.lower():
             llm_decision = "continue"

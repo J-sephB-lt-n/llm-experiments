@@ -32,7 +32,7 @@ def play_single_game_vanilla_llm() -> tuple[str, int]:
             "On each round in the game, you receive a random number of units. "
             "You will never receive more than 30 units in a single round. "
             "If you accumulate more than 100 units, you forfeit all accumulated units and lose the game. "
-            f"You have played {len(reward_history)} rounds so far and received rewards {','.join([str(x) for x in reward_history])}. "
+            f"You have played {len(reward_history)} rounds so far and received rewards of {', '.join([str(x) for x in reward_history])}. "
             "Do you wish to play another round? Please answer with a single word (yes or no)"
         )
         print(prompt)

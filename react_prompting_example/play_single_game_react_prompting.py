@@ -144,14 +144,16 @@ OBSERVATION: I have started a new game"""
                 actions_found.items(), key=lambda item: item[1].span()[0]
             )
             llm_decision, llm_decision_content = sorted_actions_found[0]
-            add_to_prompt += "\n" + llm_response[: llm_decision_content.span()[0]]
+            add_to_prompt += (
+                "\n" + llm_response[: llm_decision_content.span()[0]].strip()
+            )
             # if there is more than one action, discard response from 2nd action onward:
             if len(actions_found) > 1:
                 llm_response = llm_response[: sorted_actions_found[1][1].span()[0]]
         else:
             llm_decision = ""
             llm_decision_content = None
-            add_to_prompt += f"\n{llm_response}"
+            add_to_prompt += f"\n{llm_response.strip()}"
         print(add_to_prompt)
         prompt += add_to_prompt
         print(f"--llm response-- [[\n {llm_response} \n    ]]")

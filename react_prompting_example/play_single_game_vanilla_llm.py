@@ -40,8 +40,8 @@ def play_single_game_vanilla_llm() -> tuple[str, int]:
         )
         print(prompt)
         llm_response = ollama.generate(
-            # model="mistral:instruct",
-            model="qwen2:1.5b",
+            model="mistral:instruct",
+            # model="qwen2:1.5b",
             prompt=prompt,
         )["response"]
         print(f"LLM response: {llm_response}")

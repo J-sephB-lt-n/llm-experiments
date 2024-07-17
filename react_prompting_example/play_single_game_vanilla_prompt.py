@@ -1,4 +1,4 @@
-import ollama
+import requests
 
 from gamble_machine import GambleMachine
 
@@ -26,24 +26,24 @@ def play_single_game_vanilla_llm() -> tuple[str, int]:
             player_status = "dead"
             print("LLM has gone bust (died)")
             return "dead", 0
-        prompt = (
-            "You are playing a gambling game in which you "
-            "are trying to accumulate as much wealth (units) as possible. "
-            "On each round in the game, you receive a random number of units. "
-            "You will never receive more than 30 units in a single round. "
-            "If you accumulate more than 100 units, you forfeit all accumulated units and lose the game. "
-            f"You have played {len(reward_history)} rounds so far and received rewards of {', '.join([str(x) for x in reward_history])}. "
-            # f"Your total accumulated rewards so far is {sum(reward_history)}. "
-            "Do you wish to play another round? "
-            # "Talk me through your decision step by step, then tell me whether you want to play another round (yes or no)"
-            "Please answer with a single word (yes or no)"
-        )
+        prompt = f"""USER: You are playing a gambling game in which you
+are trying to accumulate as much wealth (units) as possible. 
+On each round in the game, you receive a random number of units. 
+You will never receive more than 30 units in a single round. 
+If you accumulate more than 100 units, you forfeit all accumulated units and lose the game.
+You have played {len(reward_history)} rounds so far and received rewards of {', '.join([str(x) for x in reward_history])}
+Your total accumulated rewards so far is {sum(reward_history)}.
+Do you wish to play another round?
+Please answer with a single word (yes or no)
+ASSISTANT: """
         print(prompt)
-        llm_response = ollama.generate(
-            model="mistral:instruct",
-            # model="qwen2:1.5b",
-            prompt=prompt,
-        )["response"]
+        llm_response: str = requests.post(
+            "http://localhost:8080/completion",
+            json={
+                "prompt": prompt,
+                "n_predict": 50,
+            },
+        ).json()["content"]
         print(f"LLM response: {llm_response}")
         if "yes" in llm_response.lower():
             llm_decision = "continue"

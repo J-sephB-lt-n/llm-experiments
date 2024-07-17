@@ -1,9 +1,28 @@
+"""
+Example usage:
+    $ python play_single_game_react_prompting.py 
+    $ python play_single_game_react_prompting.py --verbose
+"""
+
+import argparse
+import logging
 import re
-from typing import Final
 
 import requests
 
 from gamble_machine import GambleMachine
+
+logging.basicConfig(
+    level=logging.INFO,
+    format="%(asctime)s - %(levelname)s - %(message)s",
+)
+logger = logging.getLogger(__name__)
+
+arg_parser = argparse.ArgumentParser()
+arg_parser.add_argument(
+    "-v", "--verbose", help="print verbose output to terminal", action="store_true"
+)
+args = arg_parser.parse_args()
 
 
 def play_single_game_react_prompting() -> tuple[str, int]:
@@ -13,13 +32,11 @@ def play_single_game_react_prompting() -> tuple[str, int]:
         tuple[str, int]: tuple[player_status, score]
         player_status in {"alive", "dead"}
     """
-    LOGGING_SKIP_FIRST_N_PROMPT_LINES: Final[int] = 43
     g_machine = GambleMachine(bust_threshold=100)
     g_machine.new_game()
     llm_response: str = ""
     llm_decision: str = "next_round"
     llm_decision_content = None
-    player_status: str = "alive"
     game_state: str = "alive"
     reward_history: list[int] = []
     prompt: str = """
@@ -83,39 +100,43 @@ ACT: STOP_GAME()
 OBSERVATION: I have started a new game"""
     while True:
         add_to_prompt: str = ""
-        if player_status == "dead" or game_state == "game_over":
-            print("LLM has gone bust (died)")
+        if game_state == "game_over":
+            logger.info("LLM has gone bust (died)")
+            print(prompt)
             return "dead", 0
         if llm_decision not in ("sum", "max", "diff", "next_round", "stop_game"):
-            print("unable to parse LLM decision - not acting this round")
+            logger.info("unable to parse LLM decision - not acting this round")
             add_to_prompt += f"\nTHOUGHT: {llm_response[:100]}"
         elif llm_decision == "stop_game":
-            print(
-                f"LLM has decided to stop playing (total winnings: {sum(reward_history):,}"
+            logger.info(
+                "LLM has decided to stop playing (total winnings: %s)",
+                f"{sum(reward_history):,}",
             )
             return "alive", sum(reward_history)
         elif llm_decision == "sum":
-            print("LLM invoked function", llm_decision_content.group())
+            logger.info("LLM invoked function %s", llm_decision_content.group())
             values_str = re.sub(r"[^\d,]", "", llm_decision_content.group())
             add_to_prompt += f"\nACT: SUM({values_str})"
             add_to_prompt += f"\nOBSERVATION: sum function returned result {sum([int(x) for x in values_str.split(",")])}"
         elif llm_decision == "max":
-            print("LLM invoked function", llm_decision_content.group())
+            logger.info("LLM invoked function %s", llm_decision_content.group())
             values_str = re.sub(r"[^\d,]", "", llm_decision_content.group())
             add_to_prompt += f"\nACT: MAX({values_str})"
             add_to_prompt += f"\nOBSERVATION: max function returned result {max([int(x) for x in values_str.split(",")])}"
         elif llm_decision == "diff":
-            print("LLM invoked function", llm_decision_content.group())
+            logger.info("LLM invoked function %s", llm_decision_content.group())
             values_str = re.sub(r"[^\d,]", "", llm_decision_content.group())
             values: list[int] = [int(x) for x in values_str.split(",")]
             add_to_prompt += f"\nACT: DIFF({values_str})"
             add_to_prompt += f"\nOBSERVATION: diff function returned result {max(values)-min(values)}"
         elif llm_decision == "next_round":
-            print("LLM has chosen to play another round")
+            logger.info("LLM has chosen to play another round")
             game_state, reward, game_total = g_machine.generate_reward()
             reward_history.append(reward)
-            print(
-                f"LLM has received {reward} units and now has a total of {game_total:,} units."
+            logger.info(
+                "LLM has received %s units and now has a total of %s units.",
+                reward,
+                f"{game_total:,}",
             )
             add_to_prompt += f"\nOBSERVATION: I have received the following rewards from this game: {{{', '.join([str(x) for x in reward_history])}}}"
         llm_response: str = requests.post(
@@ -144,20 +165,29 @@ OBSERVATION: I have started a new game"""
                 actions_found.items(), key=lambda item: item[1].span()[0]
             )
             llm_decision, llm_decision_content = sorted_actions_found[0]
-            add_to_prompt += (
-                "\n" + llm_response[: llm_decision_content.span()[0]].strip()
+            # if LLM had a thought prior to the first action, add it to the prompt:
+            llm_thoughts = re.findall(
+                r"thought: [^\n]+",
+                llm_response[: llm_decision_content.span()[0]],
+                flags=re.IGNORECASE,
             )
+            if llm_thoughts:
+                add_to_prompt += "\n" + "\n".join(llm_thoughts)
             # if there is more than one action, discard response from 2nd action onward:
-            if len(actions_found) > 1:
-                llm_response = llm_response[: sorted_actions_found[1][1].span()[0]]
         else:
             llm_decision = ""
             llm_decision_content = None
-            add_to_prompt += f"\n{llm_response.strip()}"
+            # if LLM had thoughts, add the first one to the prompt:
+            llm_thoughts = re.findall(
+                r"thought: [^\n]+", llm_response, flags=re.IGNORECASE
+            )
+            if llm_thoughts:
+                add_to_prompt += "\n" + "\n".join(llm_thoughts)
         print(add_to_prompt)
         prompt += add_to_prompt
-        print(f"--llm response-- [[\n {llm_response} \n    ]]")
-        print(llm_decision, llm_decision_content)
+        if args.verbose:
+            print(f"--llm response-- [[\n {llm_response} \n    ]]")
+        # print(llm_decision, llm_decision_content)
 
 
 if __name__ == "__main__":

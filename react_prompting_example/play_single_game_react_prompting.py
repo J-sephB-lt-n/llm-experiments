@@ -25,6 +25,18 @@ arg_parser.add_argument(
 args = arg_parser.parse_args()
 
 
+def extract_llm_thought_lines(text: str) -> str:
+    """Extract all lines from LLM response occurring prior to an observation or action"""
+    lines = text.split("\n")
+    result = []
+
+    for line in lines:
+        if "act: " in line.lower() or "observation: " in line.lower():
+            break
+        result.append(line)
+    return "\n".join(result)
+
+
 def play_single_game_react_prompting() -> tuple[str, int]:
     """Plays a single game to completion using a ReAct prompting strategy
 
@@ -102,11 +114,10 @@ OBSERVATION: I have started a new game"""
         add_to_prompt: str = ""
         if game_state == "game_over":
             logger.info("LLM has gone bust (died)")
-            print(prompt)
+            # print(prompt)
             return "dead", 0
         if llm_decision not in ("sum", "max", "diff", "next_round", "stop_game"):
             logger.info("unable to parse LLM decision - not acting this round")
-            add_to_prompt += f"\nTHOUGHT: {llm_response[:100]}"
         elif llm_decision == "stop_game":
             logger.info(
                 "LLM has decided to stop playing (total winnings: %s)",
@@ -160,29 +171,33 @@ OBSERVATION: I have started a new game"""
             for pattern_name, pattern in find_llm_action_regex.items()
             if re.search(pattern, llm_response, flags=re.IGNORECASE)
         }
+
         if actions_found:
             sorted_actions_found = sorted(
                 actions_found.items(), key=lambda item: item[1].span()[0]
             )
             llm_decision, llm_decision_content = sorted_actions_found[0]
-            # if LLM had a thought prior to the first action, add it to the prompt:
-            llm_thoughts = re.findall(
-                r"thought: [^\n]+",
-                llm_response[: llm_decision_content.span()[0]],
-                flags=re.IGNORECASE,
-            )
+            # if LLM had thoughts, add them to the prompt:
+            llm_thoughts = extract_llm_thought_lines(llm_response)
+            # re.findall(
+            #     r"thought: [^\n]+",
+            #     llm_response[: llm_decision_content.span()[0]],
+            #     flags=re.IGNORECASE,
+            # )
             if llm_thoughts:
-                add_to_prompt += "\n" + "\n".join(llm_thoughts)
+                add_to_prompt += f"\n{llm_thoughts}"
+                # add_to_prompt += "\n" + "\n".join(llm_thoughts)
             # if there is more than one action, discard response from 2nd action onward:
         else:
             llm_decision = ""
             llm_decision_content = None
             # if LLM had thoughts, add the first one to the prompt:
-            llm_thoughts = re.findall(
-                r"thought: [^\n]+", llm_response, flags=re.IGNORECASE
-            )
+            llm_thoughts = extract_llm_thought_lines(llm_response)
+            # llm_thoughts = re.findall(
+            #     r"thought: [^\n]+", llm_response, flags=re.IGNORECASE
+            # )
             if llm_thoughts:
-                add_to_prompt += "\n" + "\n".join(llm_thoughts)
+                add_to_prompt += f"\n{llm_thoughts}"
         print(add_to_prompt)
         prompt += add_to_prompt
         if args.verbose:
